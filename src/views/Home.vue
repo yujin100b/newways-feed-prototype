@@ -80,6 +80,4 @@ h3.subtitle {
 .feeds{
   padding-right: 20px;
 }
-
-
 </style>
