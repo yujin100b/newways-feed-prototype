@@ -1,61 +1,18 @@
 <template>
   <div id="join" class="container no-scroll">
-    <h1>거주하고 있는 동네를 선택해 주세요</h1>
-    <input placeholder="읍/면/동 검색" v-model="search" />
+    <h1>휴대폰 번호로 가입해주세요</h1>
+    <input placeholder="휴대폰 번호" />
 
-    <button class="second">현재 위치로 찾기</button>
-
-    <div class="addrs">
-      <div class="addr" v-for="(addr, index) in matchingAddrs" :key="index">
-        {{ `서울특별시 마포구 ${addr}` }}
-      </div>
-    </div>
-
-    <p>다른 동네 정치인의 활동도 궁금하다면 추가할 수 있어요.</p>
-    <button class="dim">동네 추가하기</button>
+    <button class="second">인증 문자 받기</button>
 
     <button class="bottom-fixed-btn">다음</button>
   </div>
 </template>
 
 <script>
-import { computed, ref } from "vue";
-
 export default {
   setup() {
-    const addrList = [
-      "공덕동",
-      "아현동",
-      "도화동",
-      "용강동",
-      "대흥동",
-      "염리동",
-      "신수동",
-      "서강동",
-      "서교동",
-      "합정동",
-      "망원1동",
-      "망원2동",
-      "연남동",
-      "성산1동",
-      "성산2동",
-      "상암동",
-    ];
 
-    const search = ref("");
-    const addrs = ref(addrList);
-
-    const matchingAddrs = computed(() => {
-      return (
-        search.value &&
-        addrs.value.filter((addr) => addr.includes(search.value))
-      );
-    });
-
-    return {
-      matchingAddrs,
-      search,
-    };
   },
 };
 </script>
@@ -67,7 +24,6 @@ export default {
 }
 #join.container {
   padding-right: 20px;
-  height: auto;
 }
 h1 {
   font-family: "SUIT";

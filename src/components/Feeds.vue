@@ -1,5 +1,5 @@
 <template>
-  <div id="feed" v-for="feed in feeds" :key="feed.id" :ref="feeds">
+  <div id="feed" v-for="feed in feeds" :key="feed.id">
     <div class="header">
       <div class="media-left">
         <img src="../assets/user-img1.svg" />
