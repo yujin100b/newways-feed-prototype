@@ -3,17 +3,25 @@
     <h1>휴대폰 번호로 가입해주세요</h1>
     <input placeholder="휴대폰 번호" />
 
-    <button class="second">인증 문자 받기</button>
+    <button class="second" @click="authenticate">인증 문자 받기</button>
 
-    <button class="bottom-fixed-btn">다음</button>
+    <button class="bottom-fixed-btn" @click="goNext">다음</button>
   </div>
 </template>
 
 <script>
 export default {
-  setup() {
+  setup(){
 
   },
+  methods:{
+    goNext(){
+      this.$router.push('/join3')
+    },
+    authenticate(){
+      alert("인증 되었습니다")
+    }
+  }
 };
 </script>
 

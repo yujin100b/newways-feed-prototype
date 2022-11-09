@@ -1,20 +1,23 @@
 <template>
 <div class="horizontal-scroll-wrap">
-  <div id="card" v-for="i in 5" :key="i" >
+  <div id="card" v-for="(card, index) in cards" :key="index" >
     <div class="flag">
-      마포구 의원
+      팔로우
     </div>
     <div class="header">
-      <img src="../assets/user-img1.svg" />
+      <div class="profile">
+      <img :src="require(`@/assets/프로필_${card.name}.jpeg`)" />
+      </div>
       <div class="meta">
-        <span class="primary">정유진</span>
-        <span class="second">마포구 서강동, 합정동</span>
+        <span class="primary">{{card.name}}</span>
+        <span class="second">{{card.job}}, {{card.dang}}</span>
+        <span class="second keep-all">{{card.location}}</span>
         <div class="tags">
-          <span>환경</span>
-          <span>1인가구</span>
-          <span>주거</span>
+          <span>{{card.keyword[0]}}</span>
+          <span>{{card.keyword[1]}}</span>
+          <span>{{card.keyword[2]}}</span>
         </div>
-        <span class="second">2시간전 활동</span>
+        <span class="second right">2시간전 활동</span>
 
       </div>
     </div>
@@ -30,7 +33,7 @@
 
 <script>
 export default {
-
+  props: ['cards']
 }
 </script>
 
@@ -108,7 +111,7 @@ div.tags{
   font-weight: 500;
   font-size: 12px;
   line-height: 160%;
-  padding: 6px 12px;
+  padding: 6px 11px;
   background: rgba(193, 193, 193, 0.5);
   border-radius: 100px;
   margin-right: 8px;

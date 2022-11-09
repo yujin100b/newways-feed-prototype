@@ -25,13 +25,14 @@
       </span>
     </div>
 
-    <p>나중에 설정하기</p>
-    <button class="bottom-fixed-btn">내 정보 설정하기</button>
+    <p @click="goNext">나중에 설정하기</p>
+    <button class="bottom-fixed-btn" @click="goNext">내 정보 설정하기</button>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
 export default {
   setup() {
     const tags = [
@@ -53,18 +54,28 @@ export default {
       return !["기후위기", "1인가구", "교통"].includes(tag)
     }
 
-    const checkedTags = ref([...tags.map(() => "")]);
+    const checkedTags = ref([]);
     const isChecked = (tag) => {
       return checkedTags.value.includes(tag) ? 'checked' : ""
+    }
+
+    const router = useRouter();
+
+    function goNext(){
+      router.push(`/feed?checked=${checkedTags.value.join(',')}`)
     }
 
     return {
       tags,
       checkedTags,
       isChecked,
-      isDisabled
+      isDisabled,
+      goNext
     };
   },
+  methods:{
+    
+  }
 };
 </script>
 

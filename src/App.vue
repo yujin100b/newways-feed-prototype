@@ -40,6 +40,76 @@ a {
   max-height: 100%;
 }
 
+.profile{
+  min-width:43px;
+  width: 43px;
+  min-height: 43px;
+  height: 43px;
+  border-radius: 43px;
+  overflow: hidden;
+}
+.profile img{
+  width: 100%;
+}
+
+.horizontal-scroll{
+  overflow-x: scroll;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.horizontal-scroll::-webkit-scrollbar{
+  display: none;
+}
+
+.content h1 {
+  font-family: "SUIT";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #000000;
+  margin-bottom: 12px;
+}
+
+.right{
+  text-align: right;
+}
+.keep-all{
+  word-break: keep-all;
+}
+
+.feed-content,
+.text {
+  font-family: "SUIT";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #212529;
+}
+
+.content .feed-content .text {
+  display: inline-block;
+  width: 100%;
+  height: 88px;
+  overflow: hidden;
+  vertical-align: top;
+}
+.content .feed-content .text.more {
+  height: auto;
+}
+
+.btn-more{
+  display: block;
+  font-family: "SUIT";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #212529;
+    margin-bottom: 12px;
+}
+
 .bottom-fixed-btn{
   width:100%;
   text-align: center;

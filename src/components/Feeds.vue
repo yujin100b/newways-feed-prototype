@@ -1,49 +1,62 @@
 <template>
-  <div id="feed" v-for="feed in feeds" :key="feed.id">
+  <div id="feed" v-for="(feed, index) in feeds" :key="feed.id">
     <div class="header">
       <div class="media-left">
-        <img src="../assets/user-img1.svg" />
+        <div class="profile">
+          <img :src="require(`../assets/프로필_${feed.name}.jpeg`)" />
+        </div>
         <div class="meta">
-          <span class="primary">곽민해 마포구의원</span>
-          <span class="second">마포구 서강동, 합정동</span>
+          <span class="primary"
+            >{{ feed.name }}
+            {{ feed.tag === "내 동네" ? `${addr[1]}의원` : feed.job }}</span
+          >
+          <span class="second keep-all">{{
+            feed.tag === "내 동네" ? `${addr[1]} ${addr[2]}` : feed.location
+          }}</span>
         </div>
       </div>
-      <button>팔로우</button>
+      <button :class="feed.subscribe ? '팔로잉' : '팔로우'">
+        {{ feed.subscribe ? "팔로잉" : "팔로우" }}
+      </button>
     </div>
     <div class="line"></div>
     <div class="content">
       <div class="category">
-        <span class="white">기후위기</span>
-        <span class="black">변화성과</span>
+        <span v-if="feed.keyword" class="white">{{ feed.keyword }}</span>
+        <span class="black">{{ feed.format }}</span>
       </div>
-    
-    <h1>제 1회 쓰레기 환경 대상 조례 부문 대상 수상자 선정</h1>
-    <p>
-      저는 지금 환경경제위원회에 속해 있습니다. 실생활과 밀접한 정책과 사업을 다루는 부서입니다. 기초의원이 가진 권한으로도 우리 삶과 주변 환경이 나아지게 할 방법을 찾아 조례로 제정해 보려 했습니다.
-    </p>
-    <span class="second">14시간 전</span>
+
+      <div class="feed-content" v-html="feed.content"></div>
+      <span v-if="feed.content.split(' ').length > 53" class="btn-more" @click="toggleFold(index)">...더보기</span>
+      <span class="second">14시간 전</span>
     </div>
     <div class="line"></div>
     <div class="buttons">
-      <button>반응하기</button>
-      <button>댓글달기</button>
+      <button>좋아요 ❤️</button>
+      <button>댓글 💬</button>
     </div>
   </div>
 </template>
 
 <script>
+import { useStore } from "vuex";
+
 export default {
+  props: {
+    feeds: Array,
+  },
   setup() {
-    const feeds = [
-      {
-        id: 1,
-      },
-      {
-        id: 2,
-      },
-    ];
+    const store = useStore();
+    const addr = store.state.addr.split(" ");
+
+    function toggleFold(index){
+      const textContent = document.querySelectorAll(".feed-content .text")
+      textContent[index].classList.toggle("more")
+    }
+
     return {
-      feeds,
+      addr,
+      toggleFold,
     };
   },
 };
@@ -66,6 +79,7 @@ export default {
 .media-left {
   display: flex;
   align-items: flex-start;
+  max-width: 203px;
 }
 .header button {
   border: 0;
@@ -78,6 +92,9 @@ export default {
   line-height: 1.6;
   text-align: center;
   color: #212529;
+}
+.header button.팔로잉 {
+  background: rgba(193, 193, 193, 0.5);
 }
 .meta {
   padding-left: 10px;
@@ -102,19 +119,19 @@ export default {
   /* #495057 */
   color: #666666;
 }
-.line{
+.line {
   border-bottom: 1px solid #dee2e6;
   margin: 0 20px;
 }
-.content{
+.content {
   padding: 20px;
 }
-.content .category{
+.content .category {
   display: flex;
   margin-bottom: 12px;
 }
-.category span{
-  font-family: 'SUIT';
+.category span {
+  font-family: "SUIT";
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -122,53 +139,35 @@ export default {
   padding: 4px 12px;
   margin-right: 8px;
 }
-.category span.white{
-  background: #FFFFFF;
+.category span.white {
+  background: #ffffff;
   border: 1px solid #000000;
   color: #000000;
 }
-.category span.black{
+.category span.black {
   background: #000000;
-  color:#FFFFFF
+  color: #ffffff;
 }
-.content h1{
-  font-family: 'SUIT';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #000000;
-  margin-bottom: 12px;
-}
-.content p{
-  font-family: 'SUIT';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #212529;
-  margin-bottom: 12px;
-}
-.buttons{
+.buttons {
   display: flex;
   justify-content: center;
   padding: 8px 0;
 }
-.buttons button{
-  border:0;
+.buttons button {
+  border: 0;
   background: none;
   padding: 6px 58px;
-  font-family: 'SUIT';
+  font-family: "SUIT";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 160%;
   color: #000000;
 }
-.buttons button:first-child{
-  border-right: .5px solid #DEE2E6;
+.buttons button:first-child {
+  border-right: 0.5px solid #dee2e6;
 }
-.buttons button:last-child{
-  border-left: .5px solid #DEE2E6;
+.buttons button:last-child {
+  border-left: 0.5px solid #dee2e6;
 }
 </style>

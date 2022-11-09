@@ -6,56 +6,80 @@
     <button class="second">현재 위치로 찾기</button>
 
     <div class="addrs">
-      <div class="addr" v-for="(addr, index) in matchingAddrs" :key="index">
-        {{ `서울특별시 마포구 ${addr}` }}
+      <div
+        class="addr"
+        :class="selected === addr ? 'selected' : ''"
+        v-for="(addr, index) in matchingAddrs"
+        :key="index"
+        @click="choice(addr)"
+      >
+        {{ `${addr[0]} ${addr[1]} ${addr[2]}` }}
       </div>
     </div>
 
     <p>다른 동네 정치인의 활동도 궁금하다면 추가할 수 있어요.</p>
     <button class="dim">동네 추가하기</button>
 
-    <button class="bottom-fixed-btn">다음</button>
+    <button class="bottom-fixed-btn" @click="goNext">다음</button>
   </div>
 </template>
 
 <script>
 import { computed, ref } from "vue";
+import { useStore } from "vuex"
+import { addr } from "./consts";
 
 export default {
   setup() {
-    const addrList = [
-      "공덕동",
-      "아현동",
-      "도화동",
-      "용강동",
-      "대흥동",
-      "염리동",
-      "신수동",
-      "서강동",
-      "서교동",
-      "합정동",
-      "망원1동",
-      "망원2동",
-      "연남동",
-      "성산1동",
-      "성산2동",
-      "상암동",
-    ];
+    const addrList = addr.reduce((acc, cur) => {
+      const locals = cur[4];
+      const smallList =
+        locals.length > 1
+          ? locals.reduce((a, c) => {
+              return [...a, [cur[0], cur[1], c]];
+            }, [])
+          : [cur[0], cur[1], locals[0]];
+      return locals.length > 1 ? [...acc, ...smallList] : [...acc, smallList];
+    }, []);
 
     const search = ref("");
-    const addrs = ref(addrList);
+
+    const matched = (searchValue) => {
+      const localList = addrList.map((e) => {
+        return e[2];
+      });
+      return localList.reduce((a, c, i) => {
+        return c.indexOf(searchValue) !== -1 ? [...a, i] : a;
+      }, []);
+    };
 
     const matchingAddrs = computed(() => {
       return (
         search.value &&
-        addrs.value.filter((addr) => addr.includes(search.value))
+        addrList.filter((_, index) => matched(search.value).includes(index))
       );
     });
+
+    let selected = "";
+
+    const store = useStore()
+
+    function choice(addr) {
+      search.value = `${addr[0]} ${addr[1]} ${addr[2]}`;
+      store.commit("setAddr", `${addr[0]} ${addr[1]} ${addr[2]}`);
+    }
 
     return {
       matchingAddrs,
       search,
+      choice,
+      selected,
     };
+  },
+  methods: {
+    goNext() {
+      this.$router.push("/join2");
+    },
   },
 };
 </script>
@@ -63,7 +87,7 @@ export default {
 <style scoped>
 #join {
   padding-top: 40px;
-  padding-bottom: 88px;;
+  padding-bottom: 88px;
 }
 #join.container {
   padding-right: 20px;
@@ -83,14 +107,14 @@ input {
   width: 100%;
   padding: 16px 20px;
   margin-bottom: 20px;
-  font-family: 'SUIT';
+  font-family: "SUIT";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
 }
 input::placeholder {
   color: #b3b3b3;
-  font-family: 'SUIT';
+  font-family: "SUIT";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -108,9 +132,9 @@ button.second {
   padding: 16px 0;
   border: 0;
 }
-button.dim{
-  border: 1px solid #B3B3B3;
-  font-family: 'SUIT';
+button.dim {
+  border: 1px solid #b3b3b3;
+  font-family: "SUIT";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -128,11 +152,11 @@ button.dim{
   overflow: scroll;
   margin-bottom: 20px;
 }
-.addr{
+.addr {
   padding: 16px 20px;
 }
-p{
-  font-family: 'SUIT';
+p {
+  font-family: "SUIT";
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
