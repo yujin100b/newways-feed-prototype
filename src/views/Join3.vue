@@ -1,18 +1,18 @@
 <template>
   <div id="join" class="container">
     <h1>
-      내 정보를 입력하면 <br />
-      나에게 맞는 정보를 놓치지 않을 수 있어요
+      이제 다 왔어요! <br />
+      내 정보를 입력하면 맞춤 피드를 보여드려요
     </h1>
     <div class="inputs">
       <label>닉네임</label>
       <input placeholder="닉네임" />
 
       <label>성별</label>
-      <input placeholder="성별" />
+      <input placeholder="예) 남, 여, 제3의성" />
 
       <label>생년월일</label>
-      <input placeholder="생년월일" />
+      <input placeholder="예) 생년월일 8자리 20221111" />
     </div>
 
     <h2>관심 주제(최대 3개)</h2>
@@ -26,7 +26,7 @@
     </div>
 
     <p @click="goNext">나중에 설정하기</p>
-    <button class="bottom-fixed-btn" @click="goNext">내 정보 설정하기</button>
+    <button class="bottom-fixed-btn" @click="goNext">맞춤 피드 보러 가기</button>
   </div>
 </template>
 

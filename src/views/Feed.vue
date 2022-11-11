@@ -18,7 +18,7 @@
         <span
           class="tag"
           :class="selected === tag ? 'selected' : ''"
-          v-for="tag in ['내 피드', '내 동네', ...checked]"
+          v-for="tag in ['내 피드', '지역 전체', ...checked]"
           :key="tag"
         >
           <label>
@@ -32,7 +32,7 @@
       <Feeds :feeds="filtered" />
     </div>
 
-    <h2 class="card-title">관심 주제와 맞는 정치인을 만나 보세요</h2>
+    <h2 class="card-title">나와 관심 주제가 같은 정치인을 만나 보세요</h2>
      <div class="horizontal-scroll">
       <Cards :cards="cards" />
     </div>

@@ -1,24 +1,24 @@
 <template>
   <div class="container">
     <h1 class="title">
-      내가 뽑은 우리 동네 정치인 <br />
-      지금 무슨 일을 하고 있지?
+      내가 뽑은 우리 동네 정치인은 <br />
+      지금 무슨 일할까?
     </h1>
-    <h2 class="subtitle">우리 동네 정치인이 누군지 몽땅 알려 드려요</h2>
-    <h3 class="subtitle">서울 특별시 마포구 서교동에서 뽑힌 정치인은요</h3>
+    <h2 class="subtitle">우리 동네 정치인 정보, 모두 여기에!</h2>
+    <h3 class="subtitle">서울특별시 마포구 서교동에서 뽑힌 정치인은요</h3>
     
     <div class="horizontal-scroll">
       <Cards :cards="cards" />
     </div>
 
     <h2 class="title">
-      나에게 중요한 키워드로 <br />
-      활동 소식을 받아보세요 
+      나의 관심 키워드에 맞는 <br />
+      활동은 따로 모아보세요 
     </h2>
     <div class="feeds">
       <Feeds :feeds="feeds" />
     </div>
-    <button class="bottom-fixed-btn" @click="goToNext">내 맞춤 피드 보기</button>
+    <button class="bottom-fixed-btn" @click="goToNext">내 맞춤 피드 만들기</button>
   </div>
 </template>
 
@@ -38,28 +38,28 @@ export default {
         job: '마포구의원',
         location: '마포구 서교동, 망원1동',
         dang: '더불어민주당',
-        keyword: ['1인가구', '프리랜서', 'LGBT']
+        keyword: ['1인가구', '프리랜서', 'LGBT'],
       },
       {
         name: '안미자',
         job: '마포구의원',
         location: '마포구 서교동, 망원1동',
         dang: '국민의힘',
-        keyword: ['노인복지', '주거', '교통']
+        keyword: ['노인복지', '주거', '교통'],
       },
       {
         name: '정진술',
         job: '서울시의원',
         location: '마포구 서교동, 합정동, 망원1동',
         dang: '더불어민주당',
-        keyword: ['재난안전', '여성안전', '교통']
+        keyword: ['재난안전', '여성안전', '교통'],
       },
       {
         name: '정청래',
         job: '국회의원',
         location: '마포구 서강동, 서교동, 합정동, 상암동, 망원1동, 망원2동, 성산1동, 성산2동',
         dang: '더불어민주당',
-        keyword: ['동물보호', '노인복지', '문화예술']
+        keyword: ['동물보호', '노인복지', '문화예술'],
       },
     ]
     const feeds = [

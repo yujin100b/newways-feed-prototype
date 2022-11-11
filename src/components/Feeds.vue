@@ -8,10 +8,10 @@
         <div class="meta">
           <span class="primary"
             >{{ feed.name }}
-            {{ feed.tag === "내 동네" ? `${addr[1]}의원` : feed.job }}</span
+            {{ ["지역 전체", "내 피드"].includes(feed.tag) ?  `${user[addr[2]][feed.name][0]}` : feed.job }}</span
           >
           <span class="second keep-all">{{
-            feed.tag === "내 동네" ? `${addr[1]} ${addr[2]}` : feed.location
+            ["지역 전체", "내 피드"].includes(feed.tag) ? `${user[addr[2]][feed.name][1]}` : feed.location
           }}</span>
         </div>
       </div>
@@ -26,7 +26,7 @@
         <span class="black">{{ feed.format }}</span>
       </div>
 
-      <div class="feed-content" v-html="feed.content"></div>
+      <div class="feed-content" v-html="replaceText(replaceText(feed.content, '마포구',addr[1]), '상암동', addr[2] )"></div>
       <span v-if="feed.content.split(' ').length > 53" class="btn-more" @click="toggleFold(index)">...더보기</span>
       <span class="second">14시간 전</span>
     </div>
@@ -40,6 +40,7 @@
 
 <script>
 import { useStore } from "vuex";
+import { user } from "../views/consts"
 
 export default {
   props: {
@@ -53,10 +54,15 @@ export default {
       const textContent = document.querySelectorAll(".feed-content .text")
       textContent[index].classList.toggle("more")
     }
-
+    
+    const replaceText = (source,findText, replaceText) => {
+      return source.replace(new RegExp(`\\${findText}`, 'g'), replaceText);
+    };
     return {
+      user,
       addr,
       toggleFold,
+      replaceText,
     };
   },
 };

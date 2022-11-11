@@ -1,7 +1,7 @@
 <template>
   <div id="join" class="container no-scroll">
-    <h1>거주하고 있는 동네를 선택해 주세요</h1>
-    <input placeholder="읍/면/동 검색" v-model="search" />
+    <h1>지금 어느 동네에 살고 있나요?</h1>
+    <input placeholder="읍/면/동 이름을 검색하세요" v-model="search" />
 
     <button class="second">현재 위치로 찾기</button>
 
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <p>다른 동네 정치인의 활동도 궁금하다면 추가할 수 있어요.</p>
+    <p>다른 동네도 추가할 수 있어요</p>
     <button class="dim">동네 추가하기</button>
 
     <button class="bottom-fixed-btn" @click="goNext">다음</button>
