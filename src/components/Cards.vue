@@ -15,11 +15,8 @@
                 </div>
               </div>
             </div>
-            <div class="button" :class="isSubscribed(card.name)">
-              <label>
-                <input type="checkbox" :value="card.name" v-model="followd" />
+            <div class="button" :class="isSubscribed(card.name) ? 'subscribe' : ''" @click="follow(card.name)">
                 {{ isSubscribed(card.name) ? '팔로잉' : '팔로우'}}
-              </label>
             </div>
           </div>
           <div class="tags">
@@ -57,8 +54,18 @@ export default {
       return following.value.includes(name)
     }
 
+    function follow(name){
+      if(route.name === "Home") return;
+      if (isSubscribed(name)){
+        store.commit("reduceFollowed", name)
+        return
+      }
+      store.commit("setFollowed", [name])
+    }
+
     return {
       isSubscribed,
+      follow,
       route,
       user,
     };
@@ -96,6 +103,7 @@ export default {
   font-size: 14px;
   line-height: 1.6;
   color: #000000;
+  cursor: pointer;
 }
  .button.subscribe{
   background: rgba(193, 193, 193, 0.5);

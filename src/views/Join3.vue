@@ -30,8 +30,8 @@
       <input placeholder="예) 생년월일 8자리 20221111" />
     </div>
 
-    <p @click="goNext">내 정보 저장하기</p>
-    <button class="bottom-fixed-btn" @click="goNext">맞춤 피드 보러 가기</button>
+    <p @click="goNext">나중에 설정하기</p>
+    <button class="bottom-fixed-btn" @click="goNext">내 정보 보러가기</button>
   </div>
 </template>
 

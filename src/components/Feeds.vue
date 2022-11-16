@@ -40,6 +40,7 @@
 
 <script>
 import { computed } from "vue";
+import { useRoute } from "vue-router";
 import { useStore } from "vuex"
 export default {
   props: {
@@ -49,6 +50,8 @@ export default {
   setup() {
 
     const store = useStore();
+    const route = useRoute();
+    
     const following = computed(() => store.state.followed);
 
     function isSubscribed(name){
@@ -56,6 +59,7 @@ export default {
     }
 
     function follow(name){
+      if(route.name === "Home") return;
       if (isSubscribed(name)){
         store.commit("reduceFollowed", name)
         return
