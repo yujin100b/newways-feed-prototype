@@ -1,6 +1,6 @@
 <template>
   <div id="join" class="container no-scroll">
-    <h1>본인 인증을 위해 휴대전화 번호가 필요해요</h1>
+    <h1>휴대폰 번호로 가입해주세요</h1>
     <input placeholder="하이픈(-) 없이 입력" />
 
     <button class="second" @click="authenticate">인증 문자 받기</button>

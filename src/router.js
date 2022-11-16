@@ -22,6 +22,11 @@ const routes = [
     component: () => import("@/views/Join3"), // 동적 import
   },
   {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("@/views/Profile"), // 동적 import
+  },
+  {
     path: "/feed",
     name: "Feed",
     component: () => import("@/views/Feed"), // 동적 import

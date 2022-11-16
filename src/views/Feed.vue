@@ -29,11 +29,11 @@
       </div>
     </div>
     <div class="feed-wrap">
-      <Feeds :feeds="filtered" />
+      <Feeds :feeds="filtered" :tag="selected"/>
     </div>
 
-    <h2 class="card-title">나와 관심 주제가 같은 정치인을 만나 보세요</h2>
-     <div class="horizontal-scroll">
+    <h2 v-if="selected !== '내 피드'" class="card-title" >나와 관심 주제가 같은 정치인을 만나 보세요</h2>
+     <div v-if="selected !== '내 피드'" class="horizontal-scroll">
       <Cards :cards="cards" />
     </div>
   </div>
@@ -42,6 +42,7 @@
 <script>
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex"
 import { cards, feeds } from './consts'
 import Cards from "../components/Cards.vue";
 import Feeds from "../components/Feeds.vue";
@@ -52,21 +53,23 @@ export default {
     Feeds,
   },
   setup() {
-    const profiles = [
-      ["차해영", "프로필_차해영"],
-      ["안미자", "프로필_안미자"],
-      ["정진술", "프로필_정진술"],
-      ["정청래", "프로필_정청래"],
-      ["박민협", "프로필_박민협"],
-      ["손혜영", "프로필_손혜영"],
-    ];
     const route = useRoute();
-    const checked = route.query?.checked ? route.query.checked.split(",") : [];
+    const store = useStore();
+
+    const follow = route.query?.follow ? route.query.follow.split(",") : [];
+    store.commit("setFollowed", follow)
+    const following = computed(() => store.state.followed);
+
+    const profiles = follow.map((e)=>{ return [e, `프로필_${e}`]});
+
+    const checked = store.state.checked.split(",");
+    const addr = store.state.addr.split(" ");
 
     const selected = ref("내 피드");
+    const feedsByAddr = feeds(addr[addr.length -1])
 
     const filtered = computed(() => {
-      return feeds.filter((feed) => feed.tag === selected.value);
+      return selected.value === "내 피드" ? feedsByAddr.filter((feed)=> follow.includes(feed.name) ) : selected.value === "지역 전체" ? feedsByAddr.filter((feed) => feed.tag === selected.value) : feedsByAddr.filter((feed) => feed.keyword === selected.value);
     });
 
     return {
@@ -75,6 +78,7 @@ export default {
       profiles,
       selected,
       filtered,
+      following,
     };
   },
 };
@@ -121,7 +125,7 @@ export default {
   margin-bottom: 24px;
 }
 .tags {
-  width: 400px;
+  width: 420px;
 }
 .tags-wrap::-webkit-scrollbar,
 .tags::-webkit-scrollbar {

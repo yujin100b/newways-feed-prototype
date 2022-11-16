@@ -1,19 +1,13 @@
 <template>
   <div id="join" class="container">
     <h1>
-      이제 다 왔어요! <br />
-      내 정보를 입력하면 맞춤 피드를 보여드려요
+      내 정보와 관심사를 입력하면 <br />
+      맞춤 피드를 보여드려요
     </h1>
-    <div class="inputs">
-      <label>닉네임</label>
-      <input placeholder="닉네임" />
 
-      <label>성별</label>
-      <input placeholder="예) 남, 여, 제3의성" />
-
-      <label>생년월일</label>
-      <input placeholder="예) 생년월일 8자리 20221111" />
-    </div>
+    <p class="subtitle">내 관심 주제와 관련해 조례나 해결 사례를 알려 드려요. <br />
+ (최대 3개 선택)</p>
+    
 
     <h2>관심 주제(최대 3개)</h2>
     <div class="tags">
@@ -25,7 +19,18 @@
       </span>
     </div>
 
-    <p @click="goNext">나중에 설정하기</p>
+    <div class="inputs">
+      <label>닉네임</label>
+      <input placeholder="닉네임" />
+
+      <label>성별</label>
+      <input placeholder="예) 남, 여, 제3의성" />
+
+      <label>생년월일</label>
+      <input placeholder="예) 생년월일 8자리 20221111" />
+    </div>
+
+    <p @click="goNext">내 정보 저장하기</p>
     <button class="bottom-fixed-btn" @click="goNext">맞춤 피드 보러 가기</button>
   </div>
 </template>
@@ -33,36 +38,40 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from 'vue-router';
+import { useStore } from "vuex"
+
 export default {
   setup() {
     const tags = [
+      "1인가구",
       "기후위기", //- `선택 가능`
-      "장애인",
-      "주거",
-      "마음돌봄",
-      "1인가구", //- `선택 가능`
-      "교통", //- `선택 가능`
-      "여성안전",
-      "성평등",
-      "문화예술",
-      "재난안전",
-      "일자리",
       "청년",
+      "마음돌봄",
+      "일자리", //- `선택 가능`
+      "문화예술", //- `선택 가능`
+      "노인복지",
+      "성평등",
+      "재난안전",
     ];
 
+    const checkedTags = ref([]);
+
     const isDisabled = (tag) => {
-      return !["기후위기", "1인가구", "교통"].includes(tag)
+      return !["기후위기", "1인가구", "청년", "마음돌봄", "일자리", "문화예술"].includes(tag)
     }
 
-    const checkedTags = ref([]);
     const isChecked = (tag) => {
       return checkedTags.value.includes(tag) ? 'checked' : ""
     }
 
     const router = useRouter();
+    const store = useStore();
 
     function goNext(){
-      router.push(`/feed?checked=${checkedTags.value.join(',')}`)
+      const tags = checkedTags.value.join(',')
+      store.commit("setChecked", tags)
+      
+      router.push(`/profile`)
     }
 
     return {
@@ -96,10 +105,21 @@ h2 {
   line-height: 1.6;
   text-align: center;
   color: #000000;
-  margin-bottom: 32px;
+}
+h1{
+  margin-bottom: 20px;
 }
 h2 {
   margin-bottom: 24px;
+}
+p.subtitle{
+  font-family: 'SUIT';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  text-align: center;
+  color: #000000;
 }
 .inputs label {
   font-family: "SUIT";
@@ -137,6 +157,7 @@ input::placeholder {
   width: 0;
   opacity: 0;
   display: contents;
+  margin-bottom: 48px;
 }
 .tags .tag {
   display: inline-block;
@@ -166,5 +187,16 @@ p{
   text-decoration-line: underline;
   color: #666666;
   margin-bottom: 32px;
+}
+p.subtitle{
+  font-family: 'SUIT';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  text-align: center;
+  margin-bottom: 32px;
+  color: #000000;
+  text-decoration-line: none;
 }
 </style>

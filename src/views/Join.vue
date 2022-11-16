@@ -1,7 +1,8 @@
 <template>
   <div id="join" class="container no-scroll">
-    <h1>지금 어느 동네에 살고 있나요?</h1>
-    <input placeholder="읍/면/동 이름을 검색하세요" v-model="search" />
+    <h1>거주하고 있는 동네를 선택해 주세요</h1>
+    <p class="subtitle">우리 동네에서 뽑힌 기초의원/광역의원/국회의원이 <br /> 누군지 한번에 찾아보세요.</p>
+    <input placeholder="읍/면/동 검색" v-model="search" />
 
     <button class="second">현재 위치로 찾기</button>
 
@@ -101,7 +102,7 @@ h1 {
   line-height: 1.6;
   text-align: center;
   color: #000000;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 input {
   width: 100%;
@@ -164,5 +165,15 @@ p {
   text-align: center;
   color: #666666;
   margin-bottom: 12px;
+}
+p.subtitle{
+  margin-bottom: 24px;
+  font-family: 'SUIT';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  text-align: center;
+  color: #666666;
 }
 </style>

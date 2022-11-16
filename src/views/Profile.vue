@@ -1,6 +1,9 @@
 <template>
-  <div class="horizontal-scroll-wrap">
-    <div class="card" v-for="(card, index) in cards" :key="index">
+  <div id="profile" class="container">
+    <h1>관심있는 정치인을 팔로우 하세요</h1>
+    <p class="subtitle">팔로우한 정치인의 소식을 피드에서 볼 수 있어요.</p>
+    <div class="profiles">
+      <div class="card" v-for="(card, index) in cards" :key="index">
         <div class="header">
           <div class="info">
             <div class="media-left">
@@ -36,58 +39,102 @@
         </div>
         <span class="second right">2시간전 활동</span>
       </div>
-    <div class="empty"></div>
+    </div>
+
+    <button class="bottom-fixed-btn" @click="goNext">내 맞춤 피드 보기</button>
   </div>
 </template>
 
 <script>
-import {computed} from "vue"
-import { useRoute } from "vue-router";
+import { cards } from "./consts";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { user } from "../views/consts";
 
 export default {
-  props: ["cards"],
   setup() {
-    const route = useRoute();
+    const router = useRouter();
     const store = useStore();
-     const following = computed(() => store.state.followed);
+    const addr = store.state.addr.split(" ");
+    const favor = store.state.checked.split(",");
+
+    const user = addr[addr.length - 1];
+
+    const isin = (keyword) => {
+      if (favor.length > 0) {
+        let result = false;
+        favor.forEach((element) => {
+          if (keyword.includes(element)) result = true;
+        });
+        return result;
+      }
+      return false;
+    };
+
+    const filteredCard = cards
+      .filter((card) => card.user === user || isin(card.keyword))
+      .sort(function (a, b) {
+        if (a.user === b.user) return 0;
+        if (a.user !== b.user) return -1;
+      });
+    const followd = ref([]);
 
     function isSubscribed(name){
-      return following.value.includes(name)
+        return followd.value.includes(name) ? 'subscribe' : ""
+    }
+
+    function goNext() {
+      const follow = followd.value.join(',')
+      router.push(`/feed?follow=${follow}`);
     }
 
     return {
-      isSubscribed,
-      route,
-      user,
+      cards: filteredCard,
+      goNext,
+      followd,
+      isSubscribed
     };
   },
 };
 </script>
 
-<style scoped>
-.horizontal-scroll-wrap {
-  display: flex;
+<style>
+#profile {
   padding-right: 20px;
 }
-.horizontal-scroll-wrap .empty {
-  padding-right: 20px;
+#profile h1 {
+  padding-top: 32px;
+  font-family: "SUIT";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 160%;
+  color: #000000;
+  margin-bottom: 8px;
 }
- .card {
+#profile p.subtitle {
+  font-family: "SUIT";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  color: #000000;
+  margin-bottom: 42px;
+}
+#profile .card {
   background: #ffffff;
   border: 1px solid #000000;
   padding: 20px;
   margin-right: 20px;
   position: relative;
-  min-width: 315px;
+  width: 100%;
   margin-bottom: 16px;
 }
- .card:last-of-type {
+#profile .card:last-of-type {
   margin-right: 0;
   margin-bottom: 60px;
 }
- .button {
+#profile .button {
   padding: 10px 16px;
   background: #6ae5a6;
   font-family: "SUIT";
@@ -97,35 +144,35 @@ export default {
   line-height: 1.6;
   color: #000000;
 }
- .button.subscribe{
+#profile .button.subscribe{
   background: rgba(193, 193, 193, 0.5);
 }
- .button input {
+#profile .button input {
   display: none;
 }
- .flag.subscribe {
+#profile .flag.subscribe {
   background: rgba(193, 193, 193, 0.5);
 }
- .header {
+#profile .header {
   border-bottom: 1px solid #c1c1c1;
 }
- .header div.info {
+#profile .header div.info {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
- .header .media-left {
+#profile .header .media-left {
   display: flex;
   align-items: flex-start;
   max-width: 204px;
 }
- .header .meta {
+#profile .header .meta {
   padding-left: 10px;
 }
- .meta span {
+#profile .meta span {
   display: block;
 }
- .meta span.primary {
+#profile .meta span.primary {
   font-family: "SUIT";
   font-style: normal;
   font-weight: 700;
@@ -134,7 +181,7 @@ export default {
   color: #212529;
   padding-bottom: 2px;
 }
- span.second {
+#profile span.second {
   font-family: "SUIT";
   font-style: normal;
   font-weight: 400;
@@ -142,13 +189,13 @@ export default {
   line-height: 1.6;
   color: #666666;
 }
- div.tags {
+#profile div.tags {
   display: flex;
   flex-direction: row;
   padding: 12.5px 0;
   padding-left: 53px;
 }
- .tags span {
+#profile .tags span {
   display: inline;
   font-family: "SUIT";
   font-style: normal;
@@ -160,10 +207,10 @@ export default {
   border-radius: 100px;
   margin-right: 8px;
 }
- .content {
+#profile .content {
   padding-top: 12px;
 }
- .content p {
+#profile .content p {
   font-family: "SUIT";
   font-style: normal;
   font-weight: 400;
