@@ -79,7 +79,7 @@ export default {
 
     const filtered = computed(() => {
       return selected.value === "내 피드"
-        ? feedsByAddr.filter((feed) => follow.includes(feed.name))
+        ? feedsByAddr.filter((feed) => following.value.includes(feed.name))
         : selected.value === "지역 전체"
         ? feedsByAddr.filter((feed) => feed.tag === selected.value)
         : feedsByAddr.filter((feed) => feed.keyword === selected.value);
