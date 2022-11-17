@@ -3670,7 +3670,6 @@ export const feeds = (addr) => {
 
   return [
     {
-      id: 1,
       name: `${기초의원[0].name}`,
       job: `${기초의원[0].job}`,
       location: `${기초의원[0].location}`,
@@ -3683,7 +3682,6 @@ export const feeds = (addr) => {
       tag: "지역 전체",
     },
     {
-      id: 2,
       name: `${기초의원[1].name}`,
       job: `${기초의원[1].job}`,
       location: `${기초의원[1].location}`,
@@ -3703,7 +3701,6 @@ export const feeds = (addr) => {
       tag: "지역 전체",
     },
     {
-      id: 2,
       name: "안미자",
       job: `${옆동네[addr][0]}`,
       location: `${옆동네[addr][1]}`,
@@ -3718,7 +3715,6 @@ export const feeds = (addr) => {
     },
 
     {
-      id: 3,
       name: `${광역의원.name}`,
       job: `${광역의원.job}`,
       location: `${광역의원.location}`,
@@ -3734,7 +3730,6 @@ export const feeds = (addr) => {
       tag: "지역 전체",
     },
     {
-      id: 4,
       name: "유호준",
       job: `${옆동네[addr][0]}`,
       location: `${옆동네[addr][2]}`,
@@ -3760,7 +3755,6 @@ export const feeds = (addr) => {
       tag: "지역 전체",
     },
     {
-      id: 6,
       name: `${국회의원.name}`,
       job: "국회의원",
       location: `${국회의원.location}`,
@@ -3776,7 +3770,6 @@ export const feeds = (addr) => {
       tag: "지역 전체",
     },
     {
-      id: 7,
       name: "이은주",
       job: "국회의원",
       location: `${옆동네[addr][3]}`,
@@ -3790,7 +3783,6 @@ export const feeds = (addr) => {
       tag: "지역 전체",
     },
     {
-      id: 8,
       name: "손혜영",
       job: "도봉구의원",
       location: "도봉구 쌍문2동, 쌍문4동, 방학3동",
@@ -3810,7 +3802,6 @@ export const feeds = (addr) => {
       tag: "기후위기",
     },
     {
-      id: 10,
       name: "허승규",
       job: "안동시 정치인",
       location: "안동시 남선면·임하면·강남동",
@@ -3826,7 +3817,6 @@ export const feeds = (addr) => {
       tag: "기후위기",
     },
     {
-      id: 11,
       name: "이지희",
       job: "동작구의원",
       location: "동작구 상도3동,대방동",
@@ -3843,7 +3833,6 @@ export const feeds = (addr) => {
       tag: "1인가구",
     },
     {
-      id: 10,
       name: "김미성",
       job: "아산시의원",
       location: "아산시 탕정면, 배방읍, 염치읍",
@@ -3864,7 +3853,6 @@ export const feeds = (addr) => {
       tag: "청년",
     },
     {
-      id: 10,
       name: "서난이",
       job: "전북도의원",
       location: "전주시 조촌동, 동산동, 팔복동, 덕진동",
@@ -3885,7 +3873,6 @@ export const feeds = (addr) => {
       tag: "마음돌봄",
     },
     {
-      id: 10,
       name: "주무열",
       job: "관악구의원",
       location: "관악구 낙성대동, 인헌동, 남현동",
@@ -3902,7 +3889,6 @@ export const feeds = (addr) => {
       tag: "마음돌봄",
     },
     {
-      id: 10,
       name: "조민경",
       job: "연수구의원",
       location: "연수구 송도1·2·3·4동",
@@ -3921,7 +3907,6 @@ export const feeds = (addr) => {
       tag: "일자리",
     },
     {
-      id: 10,
       name: "노연수",
       job: "노원구의원",
       location: "노원구 상계1동, 상계8동, 상계9동, 상계10동",

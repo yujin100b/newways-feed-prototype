@@ -23,7 +23,6 @@ const store = createStore({
     initalizeFollowed(state){
       state.followed = []
       localStorage.setItem('followed', [])
-      console.log(JSON.parse(localStorage.getItem('vuex')))
     },
     setFollowed (state, value) {
       const newValue = new Set([...state.followed, ...value])

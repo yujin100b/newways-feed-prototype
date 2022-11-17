@@ -1,5 +1,5 @@
 <template>
-  <div id="feed" v-for="(feed, index) in feeds" :key="feed.id">
+  <div id="feed" v-for="(feed, index) in feeds" :key="index">
     <div class="header">
       <div class="media-left">
         <div class="profile">
@@ -51,7 +51,7 @@ export default {
 
     const store = useStore();
     const route = useRoute();
-    
+
     const following = computed(() => store.state.followed);
 
     function isSubscribed(name){
