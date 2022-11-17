@@ -72,11 +72,8 @@ export default {
     };
 
     const filteredCard = cards
-      .filter((card) => card.user === user || isin(card.keyword))
-      .sort(function (a, b) {
-        if (a.user === b.user) return 0;
-        if (a.user !== b.user) return -1;
-      });
+      .filter((card) => card.user === user)
+    const filteredCardByKeyword = cards.filter((card) => card.user !== user && isin(card.keyword))
     const followd = ref([]);
 
     function isSubscribed(name){
@@ -89,7 +86,7 @@ export default {
     }
 
     return {
-      cards: filteredCard,
+      cards: [...filteredCard, ...filteredCardByKeyword],
       goNext,
       followd,
       isSubscribed
