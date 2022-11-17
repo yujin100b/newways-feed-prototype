@@ -33,8 +33,7 @@
         </div>
         <div class="content">
           <p>
-            내 장점이 뭔지 알아 바로 솔직한거야.내 장점이 뭔지 알아 바로
-            솔직한거야. 방금 내가 말한 감정
+            <br />
           </p>
         </div>
         <span class="second right">2시간전 활동</span>
@@ -82,6 +81,7 @@ export default {
 
     function goNext() {
       const follow = followd.value.join(',')
+      store.commit('initalizeFollowed')
       router.push(`/feed?follow=${follow}`);
     }
 

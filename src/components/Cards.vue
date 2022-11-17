@@ -27,11 +27,10 @@
         </div>
         <div class="content">
           <p>
-            내 장점이 뭔지 알아 바로 솔직한거야.내 장점이 뭔지 알아 바로
-            솔직한거야. 방금 내가 말한 감정
+            <br />
           </p>
         </div>
-        <span class="second right">2시간전 활동</span>
+        <span class="second right update_at">2시간전 활동</span>
       </div>
     <div class="empty"></div>
   </div>
@@ -149,6 +148,10 @@ export default {
   font-size: 12px;
   line-height: 1.6;
   color: #666666;
+}
+span.update_at{
+  position: absolute;
+  bottom: 20px;
 }
  div.tags {
   display: flex;

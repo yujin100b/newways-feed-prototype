@@ -157,7 +157,7 @@ h1 {
   margin-bottom: 24px;
 }
 .tags {
-  width: 420px;
+  width: 423px;
 }
 .tags-wrap::-webkit-scrollbar,
 .tags::-webkit-scrollbar {
